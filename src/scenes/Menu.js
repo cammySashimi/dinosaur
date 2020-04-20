@@ -13,7 +13,7 @@ class Menu extends Phaser.Scene {
 	create() {
 		// styles
 		let menuHeader = {
-			fontFamily: "Courier",
+			fontFamily: "Sniglet",
 			fontSize: "24px",
 			fontStyle: "bold",
 			color: "#30d80a",
@@ -26,7 +26,7 @@ class Menu extends Phaser.Scene {
 		}
 		
 		let menuBody = {
-			fontFamily: "Courier",
+			fontFamily: "Sniglet",
 			fontSize: "18px",
 			color: "#eee",
 			fontStyle: "bold",
@@ -39,7 +39,7 @@ class Menu extends Phaser.Scene {
 		}
 		
 		let menuSettings = {
-			fontFamily: "Courier",
+			fontFamily: "Sniglet",
 			fontSize: "20px",
 			color: "#d84c0a",
 			fontStyle: "bold",
@@ -51,8 +51,14 @@ class Menu extends Phaser.Scene {
 			fixedWidth: 0
 		}		
 		
-		let mode = "Free-for-all";
-		let playerNum = 1;
+		this.mode = "Free-for-all";
+		this.playerNum = 1;
+		
+		game.settings = {
+			gameMode: "Free-for-all",
+			numPlayers: 1,
+			gameTimer: 0  
+		}
 		
 		// show menu text
 		let centerX = game.config.width/2;
@@ -69,8 +75,8 @@ class Menu extends Phaser.Scene {
 		this.add.text(centerX, centerY+textSpacer*7, "Press [1], [2], [3], or [4] to set player number", menuBody).setOrigin(0.5);
 		this.add.text(centerX, centerY+textSpacer*8, "Press [←] for team co-op or [→] for free-for-all", menuBody).setOrigin(0.5);
 
-		this.pNumText = this.add.text(centerX, centerY+textSpacer*10, "Players: "+playerNum, menuSettings).setOrigin(0.5);
-		this.modeText = this.add.text(centerX, centerY+textSpacer*11, "Mode: "+mode, menuSettings).setOrigin(0.5);
+		this.pNumText = this.add.text(centerX, centerY+textSpacer*10, "Players: "+this.playerNum, menuSettings).setOrigin(0.5);
+		this.modeText = this.add.text(centerX, centerY+textSpacer*11, "Mode: "+this.mode, menuSettings).setOrigin(0.5);
 
 		this.add.text(centerX, centerY+textSpacer*13, "Press [ENTER] to start!", menuHeader).setOrigin(0.5);
 
@@ -82,7 +88,7 @@ class Menu extends Phaser.Scene {
 		keyCoop = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 		keyComp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 		keyStart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-		
+
 	}
 	
 	update() {
@@ -113,7 +119,7 @@ class Menu extends Phaser.Scene {
 			this.modeText.text = "Mode: "+this.mode;
 		}
 		
-		if (this.playerNum != 2 && this.playerNum != 4) {
+		if (this.playerNum != 4) {
 			this.mode = "Free-for-all";
 			this.modeText.text = "Mode: "+this.mode;
 		}

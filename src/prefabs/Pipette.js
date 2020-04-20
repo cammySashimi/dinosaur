@@ -14,6 +14,8 @@ class Pipette extends Phaser.GameObjects.Sprite {
 		this.leftBtn = leftBtn;
 		this.rightBtn = rightBtn;
 		this.shootBtn = shootBtn;
+		this.points = 0;
+
 	}
 	
 	update() {
@@ -31,9 +33,13 @@ class Pipette extends Phaser.GameObjects.Sprite {
 		
 		// fire button
 		if (Phaser.Input.Keyboard.JustDown(this.shootBtn) && !this.isFiring) {
+			this.scene.sound.play("sfx_drop", {volume: 0.1})
 			this.isFiring = true;
 			this.setFrame(this.emptyTex);
-			this.drop = new Drop(this.scene, this.x, this.y, "spritesheet", "drop", this, this.angle, 3).setOrigin(0.5, 4.25);
+			let adjDir = (this.angle-90) * (Math.PI/180);
+			let dropX = this.x + 45*Math.cos(adjDir);
+			let dropY = this.y + 45*Math.sin(adjDir);
+			this.drop = new Drop(this.scene, dropX, dropY, "spritesheet", "drop", this, this.angle, 3).setOrigin(0, 0);
 		}
 		
 	}
